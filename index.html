@@ -36,7 +36,7 @@
       object-fit: cover;
       display: block;
       opacity: 0;
-      filter: grayscale(0.88) contrast(1.2) brightness(0.84) saturate(1.05);
+      filter: none;
       transition: opacity 1400ms ease;
     }
     body.scene-ready .background img {
@@ -47,9 +47,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 56%, rgba(12, 24, 42, 0.05), rgba(2, 5, 11, 0.38) 72%, rgba(1, 2, 8, 0.62) 100%),
-        linear-gradient(180deg, rgba(2, 5, 11, 0.08), rgba(1, 3, 10, 0.56)),
-        radial-gradient(circle at center, transparent 42%, rgba(1, 3, 10, 0.22) 100%);
+        radial-gradient(circle at center, transparent 58%, rgba(8, 14, 24, 0.08) 100%);
     }
     .rift {
       position: fixed;
@@ -320,7 +318,7 @@
       transform: translate(-50%, -50%);
       z-index: 5;
       font-family: var(--font-display);
-      font-size: clamp(28px, 5.6vw, 66px);
+      font-size: clamp(24px, 5vw, 58px);
       font-style: italic;
       font-weight: 400;
       letter-spacing: 0.18em;
@@ -365,28 +363,6 @@
       70% { transform: translate(-50%, -50%) scale(1); opacity: 0.92; filter: blur(0px); }
       86% { transform: translate(-50%, -50%) scale(1.01); opacity: 0.55; filter: blur(0.8px); }
       100% { transform: translate(-50%, -50%) scale(1.03); opacity: 0; filter: blur(3px); }
-    }
-    .farewell {
-      position: fixed;
-      left: 50%;
-      bottom: 0.5%;
-      transform: translateX(-50%);
-      z-index: 5;
-      color: rgba(232, 236, 241, 0.62);
-      font-family: var(--font-display);
-      font-size: clamp(15px, 2.15vw, 18px);
-      font-style: italic;
-      letter-spacing: 0.22em;
-      text-indent: 0.22em;
-      text-transform: lowercase;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0.68;
-      animation: farewell-fade 9s ease-in-out infinite;
-    }
-    @keyframes farewell-fade {
-      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.84; transform: translateX(-50%) translateY(-1px); }
     }
     .brand-smoke {
       position: fixed;
@@ -473,22 +449,22 @@
     .blessing {
       position: fixed;
       left: 50%;
-      top: 52%;
+      top: 50%;
       transform: translate(-50%, -50%);
       z-index: 8;
       width: min(86vw, 760px);
       padding: 22px 24px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.03);
-      background: rgba(5, 9, 20, 0.16);
-      backdrop-filter: blur(3px);
-      color: rgba(244, 247, 252, 0.95);
+      border: 1px solid rgba(255,255,255,0.008);
+      background: rgba(5, 9, 20, 0.015);
+      backdrop-filter: blur(0.8px);
+      color: rgba(236, 242, 250, 0.78);
       text-align: center;
       font: 400 italic clamp(16px, 2.3vw, 22px)/1.8 var(--font-display);
-      letter-spacing: 0.01em;
+      letter-spacing: 0.03em;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 700ms ease;
+      transition: opacity 1400ms ease;
       pointer-events: none;
       text-wrap: balance;
     }
@@ -500,21 +476,24 @@
     .blessing-line {
       display: block;
       opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 520ms ease, transform 520ms ease;
+      transform: translateY(14px) scale(0.985);
+      filter: blur(2.4px);
+      transition: opacity 1800ms ease, transform 1800ms ease, filter 1800ms ease;
     }
     .blessing-line + .blessing-line {
       margin-top: 6px;
     }
     .blessing-line.show {
-      opacity: 1;
-      transform: translateY(0);
+      opacity: 0.84;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+      animation: blessing-line-cinematic 4600ms ease-in-out both;
     }
     .blessing.vanish {
       animation: blessing-smoke-out 3800ms ease-out forwards;
     }
     .blessing-line.smoke {
-      animation: blessing-line-smoke 2600ms ease-out forwards;
+      animation: blessing-line-smoke 3400ms ease-out forwards;
       animation-delay: var(--smoke-delay, 0ms);
     }
     .blessing-puff {
@@ -552,20 +531,27 @@
       display: grid;
       place-items: center;
       background:
-        radial-gradient(circle at 30% 25%, rgba(158, 194, 232, 0.16), transparent 42%),
-        radial-gradient(circle at 70% 75%, rgba(164, 185, 216, 0.12), transparent 38%),
-        rgba(2, 5, 12, 0.86);
-      color: rgba(236, 242, 251, 0.9);
+        radial-gradient(circle at 50% 42%, rgba(12, 18, 30, 0.2), rgba(2, 4, 10, 0.9) 74%, rgba(1, 2, 6, 0.98) 100%),
+        linear-gradient(180deg, rgba(4, 7, 12, 0.72), rgba(3, 5, 10, 0.86)),
+        url('z7773202571825_3d5e1c34a28789c434ca1717cd6f7029.jpg') center center / cover no-repeat;
+      color: rgba(236, 242, 251, 0.94);
       font: 500 clamp(14px, 1.8vw, 18px)/1.4 var(--font-ui);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: opacity 900ms ease, visibility 900ms ease;
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(4px) saturate(70%);
+      text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.45),
+        0 0 18px rgba(170, 196, 232, 0.18);
+      justify-items: center;
+      align-items: center;
+      text-align: center;
     }
     .loading-dots {
       display: inline-flex;
       margin-left: 4px;
       gap: 2px;
+      font-size: 1.5em;
     }
     .loading-dots span {
       opacity: 0.2;
@@ -577,6 +563,129 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+    .wish-panel {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 19;
+      width: min(92vw, 520px);
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.015);
+      background: linear-gradient(155deg, rgba(10, 15, 24, 0.09), rgba(4, 7, 13, 0.05));
+      backdrop-filter: blur(30px) saturate(118%);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+      color: rgba(241, 246, 253, 0.95);
+      transition: opacity 420ms ease, transform 420ms ease, visibility 420ms ease;
+    }
+    .wish-panel.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, -46%);
+    }
+    .wish-title {
+      margin: 0 0 10px;
+      font: 600 clamp(15px, 2vw, 18px)/1.35 var(--font-ui);
+      letter-spacing: 0.05em;
+      color: rgba(238, 244, 252, 0.8);
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+    }
+    .wish-input {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.045);
+      background: rgba(6, 11, 19, 0.1);
+      color: rgba(245, 248, 253, 0.92);
+      padding: 10px 12px;
+      font: 500 14px/1.5 var(--font-ui);
+      outline: none;
+      box-sizing: border-box;
+      backdrop-filter: blur(10px);
+      transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+    .wish-input:focus {
+      border-color: rgba(192, 220, 253, 0.28);
+      background: rgba(8, 14, 24, 0.24);
+      box-shadow: 0 0 0 3px rgba(173, 208, 248, 0.1);
+    }
+    .wish-input::placeholder {
+      color: rgba(228, 236, 246, 0.44);
+    }
+    .wish-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .wish-btn {
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 999px;
+      background: rgba(15, 26, 43, 0.16);
+      color: rgba(245, 249, 254, 0.9);
+      font: 600 13px/1 var(--font-ui);
+      letter-spacing: 0.03em;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .wish-btn.primary {
+      background: rgba(182, 218, 255, 0.1);
+      border-color: rgba(210, 232, 255, 0.16);
+      color: rgba(252, 254, 255, 0.98);
+    }
+    .wish-btn.danger {
+      background: rgba(255, 118, 118, 0.12);
+      border-color: rgba(255, 168, 168, 0.18);
+      color: rgba(255, 226, 226, 0.9);
+      margin-right: auto;
+    }
+    .wish-status {
+      margin-top: 8px;
+      min-height: 18px;
+      font: 500 12px/1.4 var(--font-ui);
+      color: rgba(223, 236, 251, 0.66);
+    }
+    .wishes-wall {
+      position: fixed;
+      left: 50%;
+      bottom: 3%;
+      transform: translateX(-50%);
+      z-index: 9;
+      width: min(92vw, 560px);
+      max-height: 22vh;
+      overflow: auto;
+      padding: 8px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(160deg, rgba(7, 12, 20, 0.12), rgba(4, 8, 14, 0.06));
+      backdrop-filter: blur(24px) saturate(120%);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+    .wish-item {
+      padding: 7px 8px;
+      border-radius: 9px;
+      background: rgba(10, 18, 30, 0.08);
+      border: 1px solid rgba(255,255,255,0.03);
+      margin-bottom: 6px;
+    }
+    .wish-item:last-child {
+      margin-bottom: 0;
+    }
+    .wish-item-name {
+      font: 600 12px/1.3 var(--font-ui);
+      color: rgba(240, 246, 255, 0.8);
+      margin-bottom: 3px;
+      letter-spacing: 0.02em;
+    }
+    .wish-item-msg {
+      font: 500 12px/1.45 var(--font-ui);
+      color: rgba(232, 240, 251, 0.74);
+      white-space: pre-wrap;
+      word-break: break-word;
     }
     @keyframes loading-dot {
       0%, 100% { opacity: 0.2; transform: translateY(0); }
@@ -593,6 +702,11 @@
     @keyframes blessing-line-smoke {
       0% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
       100% { opacity: 0; filter: blur(5px); transform: translateY(-16px) scale(1.015); }
+    }
+    @keyframes blessing-line-cinematic {
+      0% { opacity: 0; transform: translateY(16px) scale(0.982); filter: blur(2.8px); }
+      35% { opacity: 0.9; transform: translateY(0) scale(1); filter: blur(0); }
+      100% { opacity: 0.82; transform: translateY(0) scale(1); filter: blur(0.12px); }
     }
     @keyframes blessing-puff-rise {
       0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.7); }
@@ -611,13 +725,8 @@
     }
     @media (max-width: 700px) {
       .brand {
-        top: 45%;
-        font-size: clamp(22px, 8.4vw, 44px);
-        letter-spacing: 0.14em;
-      }
-      .farewell {
-        bottom: 2.2%;
-        font-size: clamp(13px, 3.8vw, 16px);
+        top: 48%;
+        font-size: clamp(20px, 7.4vw, 38px);
         letter-spacing: 0.14em;
       }
       .music-dock {
@@ -628,7 +737,7 @@
         width: 46px;
       }
       .blessing {
-        top: 54%;
+        top: 52%;
         width: min(90vw, 620px);
         padding: 16px 14px;
         font-size: clamp(14px, 4vw, 18px);
@@ -664,15 +773,34 @@
     </audio>
   </div>
   <div class="brand">Phanh Lộc</div>
-  <div class="farewell">đã từng là của nhau</div>
   <div class="blessing" id="blessingMessage">
     <span class="blessing-line">Chặng đường mới chắc sẽ nhiều thử thách nhưng cũng đầy cơ hội.</span>
     <span class="blessing-line">Bọn tao chúc Phanh tương lai sáng lạn, thành công rực rỡ.</span>
-    <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh .</span>
+    <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh ❤️</span>
   </div>
   <div class="epilogue" id="epilogueMessage">Hẹn ngày hội ngộ.</div>
-  <div class="loading-overlay" id="loadingOverlay">Đang chuẩn bị khung hình<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+  <div class="wish-panel" id="wishPanel">
+    <p class="wish-title">Để lại lời chúc cho Phanh</p>
+    <input id="wishNameInput" class="wish-input" style="min-height:auto;height:40px;margin-bottom:8px;" maxlength="40" placeholder="Tên của bạn (tuỳ chọn)" />
+    <textarea id="wishInput" class="wish-input" maxlength="280" placeholder="Viết lời chúc của bạn..."></textarea>
+    <div class="wish-actions">
+      <button type="button" class="wish-btn danger" id="wishClearBtn">Xóa lời chúc cũ</button>
+      <button type="button" class="wish-btn" id="wishSkipBtn">Để sau</button>
+      <button type="button" class="wish-btn primary" id="wishSaveBtn">Gửi lời chúc</button>
+    </div>
+    <div class="wish-status" id="wishStatus"></div>
+  </div>
+  <div class="wishes-wall" id="wishesWall"><div id="wishesList"></div></div>
+  <div class="loading-overlay" id="loadingOverlay"><span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
+    const SUPABASE_URL = 'https://ctwjvsnlwakojjjrbehi.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_8rzaZGsQ46tAyvjqPjAuOw_OH23xXrL';
+    const WISHES_TABLE = 'wishes';
+    const EMAILJS_PUBLIC_KEY = 'rbFLlPz18RcEoThD8';
+    const EMAILJS_SERVICE_ID = 'service_pb0ykc5';
+    const EMAILJS_TEMPLATE_ID = 'template_r3inua3';
+    const WISH_RECIPIENT_EMAIL = 'phuc.hp2203@gmail.com';
     const sky = document.getElementById('sky');
     const heartField = document.getElementById('heartField');
     const brand = document.querySelector('.brand');
@@ -684,10 +812,23 @@
     const musicProgressBar = document.getElementById('musicProgressBar');
     const blessingMessage = document.getElementById('blessingMessage');
     const epilogueMessage = document.getElementById('epilogueMessage');
+    const wishPanel = document.getElementById('wishPanel');
+    const wishNameInput = document.getElementById('wishNameInput');
+    const wishInput = document.getElementById('wishInput');
+    const wishSaveBtn = document.getElementById('wishSaveBtn');
+    const wishClearBtn = document.getElementById('wishClearBtn');
+    const wishSkipBtn = document.getElementById('wishSkipBtn');
+    const wishStatus = document.getElementById('wishStatus');
+    const wishesList = document.getElementById('wishesList');
     const loadingOverlay = document.getElementById('loadingOverlay');
     let isStartingMusic = false;
     let blessingTimerId = null;
     let hasShownBlessing = false;
+    let blessingVanishStarted = false;
+    let blessingLinesShown = 0;
+    let blessingVanishAt = Infinity;
+    let epilogueAt = Infinity;
+    const blessingBeatTimes = [15.0, 18.2, 21.6];
 
     if (document.body.dataset.bg === '1') {
       bgImage.src = 'z7771436536221_a1c4348aa46cee7ced7ad50068ca783b.jpg';
@@ -868,19 +1009,37 @@
       hasShownBlessing = true;
       blessingMessage.classList.add('show');
       const lines = blessingMessage.querySelectorAll('.blessing-line');
-      lines.forEach((line, index) => {
-        setTimeout(() => line.classList.add('show'), index * 850);
-      });
-      const totalLineRevealMs = lines.length * 850;
-      setTimeout(() => {
+      blessingLinesShown = 0;
+      blessingVanishStarted = false;
+      const lastBeat = blessingBeatTimes[Math.min(blessingBeatTimes.length, lines.length) - 1] || 15;
+      blessingVanishAt = lastBeat + 15;
+      epilogueAt = blessingVanishAt + 4.2;
+    }
+
+    function updateBlessingByMusicTime() {
+      if (!hasShownBlessing || !blessingMessage) return;
+      const lines = blessingMessage.querySelectorAll('.blessing-line');
+      for (let i = blessingLinesShown; i < lines.length; i++) {
+        const beatAt = blessingBeatTimes[i] ?? (blessingBeatTimes[blessingBeatTimes.length - 1] + (i - blessingBeatTimes.length + 1) * 2.2);
+        if (bgm.currentTime >= beatAt) {
+          lines[i].classList.add('show');
+          blessingLinesShown = i + 1;
+        } else {
+          break;
+        }
+      }
+      if (!blessingVanishStarted && bgm.currentTime >= blessingVanishAt) {
+        blessingVanishStarted = true;
         emitBlessingSmoke();
         lines.forEach((line, index) => {
           line.style.setProperty('--smoke-delay', (index * 220) + 'ms');
           line.classList.add('smoke');
         });
         blessingMessage.classList.add('vanish');
-      }, totalLineRevealMs + 15000);
-      setTimeout(showEpilogueMessage, totalLineRevealMs + 15000 + 4200);
+      }
+      if (bgm.currentTime >= epilogueAt) {
+        showEpilogueMessage();
+      }
     }
 
     function showEpilogueMessage() {
@@ -900,6 +1059,169 @@
       if (!loadingOverlay) return;
       loadingOverlay.classList.add('hide');
       document.body.classList.add('scene-ready');
+    }
+
+    function openWishPanel() {
+      if (!wishPanel) return;
+      wishPanel.classList.remove('hidden');
+      const savedWish = localStorage.getItem('guestWishMessage');
+      if (savedWish && wishInput && !wishInput.value) {
+        wishInput.value = savedWish;
+      }
+      if (wishInput) wishInput.focus();
+    }
+
+    function closeWishPanel() {
+      if (!wishPanel) return;
+      wishPanel.classList.add('hidden');
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+    }
+
+    function setWishStatus(text, isError = false) {
+      if (!wishStatus) return;
+      wishStatus.textContent = text;
+      wishStatus.style.color = isError ? 'rgba(255, 191, 191, 0.92)' : 'rgba(223, 236, 251, 0.8)';
+    }
+
+    function renderWishes(items) {
+      if (!wishesList) return;
+      if (!items || items.length === 0) {
+        wishesList.innerHTML = '<div class="wish-item"><div class="wish-item-msg">Chưa có lời chúc nào.</div></div>';
+        return;
+      }
+      wishesList.innerHTML = items.map((item) => {
+        const name = (item.name || 'Bạn ẩn danh').trim() || 'Bạn ẩn danh';
+        return '<div class="wish-item">' +
+          '<div class="wish-item-name">' + escapeHtml(name) + '</div>' +
+          '<div class="wish-item-msg">' + escapeHtml(item.message || '') + '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function canSendWishEmail() {
+      return (
+        typeof window.emailjs !== 'undefined' &&
+        !EMAILJS_PUBLIC_KEY.startsWith('PASTE_') &&
+        !EMAILJS_SERVICE_ID.startsWith('PASTE_') &&
+        !EMAILJS_TEMPLATE_ID.startsWith('PASTE_') &&
+        !WISH_RECIPIENT_EMAIL.startsWith('PASTE_')
+      );
+    }
+
+    async function sendWishToEmail(name, text) {
+      if (!canSendWishEmail()) return false;
+      window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      const result = await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: name || 'Bạn ẩn danh',
+        wish_message: text,
+        to_email: WISH_RECIPIENT_EMAIL,
+        sent_at: new Date().toLocaleString('vi-VN')
+      });
+      if (!result || (result.status !== 200 && result.text !== 'OK')) {
+        throw new Error('EMAILJS_UNEXPECTED_RESPONSE');
+      }
+      return true;
+    }
+
+    async function fetchWishes() {
+      try {
+        const url = SUPABASE_URL + '/rest/v1/' + WISHES_TABLE + '?select=id,name,message,created_at&order=created_at.desc&limit=20';
+        const response = await fetch(url, {
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + SUPABASE_ANON_KEY
+          }
+        });
+        if (!response.ok) return;
+        const data = await response.json();
+        renderWishes(data);
+      } catch (err) {
+        // ignore transient fetch errors on client side
+      }
+    }
+
+    async function submitWishMessage() {
+      const text = (wishInput?.value || '').trim();
+      const name = (wishNameInput?.value || '').trim();
+      if (!text) {
+        setWishStatus('Bạn hãy nhập lời chúc trước nhé.', true);
+        return;
+      }
+      try {
+        setWishStatus('Đang gửi lời chúc...');
+        if (wishSaveBtn) wishSaveBtn.disabled = true;
+        const response = await fetch(SUPABASE_URL + '/rest/v1/' + WISHES_TABLE, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            Prefer: 'return=representation'
+          },
+          body: JSON.stringify([{ name: name || null, message: text }])
+        });
+        if (!response.ok) {
+          setWishStatus('Gửi chưa thành công, bạn thử lại nhé.', true);
+          return;
+        }
+        localStorage.setItem('guestWishMessage', text);
+        if (wishInput) wishInput.value = '';
+        let emailed = false;
+        let emailError = '';
+        try {
+          emailed = await sendWishToEmail(name, text);
+        } catch (err) {
+          emailError = err?.text || err?.message || 'EMAILJS_SEND_FAILED';
+        }
+        setWishStatus(
+          emailed
+            ? 'Đã gửi lời chúc + email thành công.'
+            : 'Đã gửi lời chúc, nhưng email lỗi: ' + emailError,
+          !emailed
+        );
+        if (emailed) {
+          closeWishPanel();
+        } else {
+          console.error('EmailJS send failed:', emailError);
+        }
+        fetchWishes();
+      } catch (err) {
+        setWishStatus('Lỗi kết nối, bạn thử lại nhé.', true);
+      } finally {
+        if (wishSaveBtn) wishSaveBtn.disabled = false;
+      }
+    }
+
+    async function clearAllWishes() {
+      const ok = window.confirm('Bạn chắc chắn muốn xóa toàn bộ lời chúc cũ?');
+      if (!ok) return;
+      try {
+        setWishStatus('Đang xóa lời chúc...');
+        if (wishClearBtn) wishClearBtn.disabled = true;
+        const response = await fetch(SUPABASE_URL + '/rest/v1/' + WISHES_TABLE + '?id=gt.0', {
+          method: 'DELETE',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + SUPABASE_ANON_KEY
+          }
+        });
+        if (!response.ok) {
+          setWishStatus('Không xóa được. Cần bật quyền DELETE trong Supabase.', true);
+          return;
+        }
+        setWishStatus('Đã xóa toàn bộ lời chúc cũ.');
+        fetchWishes();
+      } catch (err) {
+        setWishStatus('Lỗi kết nối khi xóa, bạn thử lại nhé.', true);
+      } finally {
+        if (wishClearBtn) wishClearBtn.disabled = false;
+      }
     }
 
     function emitBlessingSmoke() {
@@ -948,9 +1270,23 @@
     bgm.addEventListener('play', scheduleBlessingMessage);
     bgm.addEventListener('timeupdate', updateMusicProgress);
     bgm.addEventListener('timeupdate', handlePlaybackCue);
+    bgm.addEventListener('timeupdate', updateBlessingByMusicTime);
     bgm.addEventListener('pause', handlePlaybackCue);
     bgm.addEventListener('ended', handlePlaybackCue);
+    if (wishSaveBtn) wishSaveBtn.addEventListener('click', submitWishMessage);
+    if (wishClearBtn) wishClearBtn.addEventListener('click', clearAllWishes);
+    if (wishSkipBtn) wishSkipBtn.addEventListener('click', closeWishPanel);
+    if (wishInput) {
+      wishInput.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+          submitWishMessage();
+        }
+      });
+    }
     window.addEventListener('load', () => {
+      openWishPanel();
+      fetchWishes();
+      setInterval(fetchWishes, 12000);
       setTimeout(hideLoadingOverlay, 3000);
     });
   </script>
