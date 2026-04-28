@@ -11,22 +11,23 @@
       --bg2: #08111f;
       --glow: rgba(187, 204, 230, 0.7);
       --star: #f4f7fb;
+      --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+      --font-ui: "Avenir Next", "Segoe UI", system-ui, sans-serif;
     }
-    html, body {
-      width: 100%;
-      height: 100%;
+    body {
       margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-ui);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(90, 120, 255, 0.25), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(0, 220, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, var(--bg2), var(--bg1) 60%, #01030a);
       overflow: hidden;
-      font-family: system-ui, sans-serif;
     }
     .background {
       position: fixed;
       inset: 0;
       z-index: -3;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(90, 120, 255, 0.25), transparent 30%),
-        radial-gradient(circle at 80% 30%, rgba(0, 220, 255, 0.12), transparent 28%),
-        linear-gradient(180deg, var(--bg2), var(--bg1) 60%, #01030a);
       overflow: hidden;
     }
     .background img {
@@ -34,16 +35,21 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      opacity: 0;
+      filter: grayscale(0.88) contrast(1.2) brightness(0.84) saturate(1.05);
+      transition: opacity 1400ms ease;
+    }
+    body.scene-ready .background img {
       opacity: 0.93;
-      filter: grayscale(0.94) contrast(1.28) brightness(0.72) saturate(1);
     }
     .background::after {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(2, 5, 11, 0.16), rgba(1, 3, 10, 0.82)),
-        radial-gradient(circle at center, transparent 36%, rgba(1, 3, 10, 0.36) 100%);
+        radial-gradient(circle at 50% 56%, rgba(12, 24, 42, 0.05), rgba(2, 5, 11, 0.38) 72%, rgba(1, 2, 8, 0.62) 100%),
+        linear-gradient(180deg, rgba(2, 5, 11, 0.08), rgba(1, 3, 10, 0.56)),
+        radial-gradient(circle at center, transparent 42%, rgba(1, 3, 10, 0.22) 100%);
     }
     .rift {
       position: fixed;
@@ -84,9 +90,9 @@
       height: 2px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.94);
-      box-shadow: 0 0 10px 2px rgba(220,230,245,0.28);
+      box-shadow: 0 0 8px 1px rgba(220,230,245,0.18);
       animation: twinkle var(--twinkle, 4s) infinite ease-in-out;
-      opacity: 0.24;
+      opacity: 0.16;
     }
     @keyframes twinkle {
       0%, 100% { transform: scale(1); opacity: 0.25; }
@@ -97,7 +103,7 @@
       width: 200px;
       height: 2px;
       background: linear-gradient(90deg, rgba(255,255,255,0), rgba(239,243,250,0.92), rgba(180,192,210,0));
-      filter: drop-shadow(0 0 12px rgba(187,204,230,0.5));
+      filter: drop-shadow(0 0 10px rgba(187,204,230,0.28));
       transform: rotate(var(--angle, -35deg));
       animation: fly var(--duration, 1.8s) linear forwards;
     }
@@ -207,7 +213,7 @@
         0 10px 28px rgba(0,0,0,0.26),
         inset 0 1px 0 rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.9);
-      font: 600 12px/1 system-ui, sans-serif;
+      font: 600 12px/1 var(--font-ui);
       letter-spacing: 0.03em;
       transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
       position: relative;
@@ -227,6 +233,13 @@
         0 14px 34px rgba(0,0,0,0.3),
         0 0 0 1px rgba(159,215,255,0.08),
         0 0 28px rgba(159,215,255,0.12);
+    }
+    .music-chip.cue {
+      border-color: rgba(234, 246, 255, 0.44);
+      box-shadow:
+        0 14px 34px rgba(0,0,0,0.28),
+        0 0 0 1px rgba(219, 238, 255, 0.2),
+        0 0 36px rgba(205, 232, 255, 0.24);
     }
     .music-chip:hover {
       transform: translateY(-1px);
@@ -283,37 +296,69 @@
     .music-label {
       display: none;
     }
+    .music-progress {
+      width: 58px;
+      height: 2px;
+      border-radius: 999px;
+      margin: 2px 8px 0;
+      background: rgba(255,255,255,0.16);
+      overflow: hidden;
+      align-self: center;
+    }
+    .music-progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(173, 223, 255, 0.4), rgba(239, 248, 255, 0.92));
+      box-shadow: 0 0 10px rgba(189, 224, 247, 0.24);
+      transition: width 200ms linear;
+    }
     .brand {
       position: fixed;
       left: 50%;
-      top: 35%;
+      top: 48%;
       transform: translate(-50%, -50%);
       z-index: 5;
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
-      font-size: clamp(36px, 7.4vw, 84px);
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5.6vw, 66px);
       font-style: italic;
-      font-weight: 500;
-      letter-spacing: 0.22em;
+      font-weight: 400;
+      letter-spacing: 0.18em;
       text-transform: none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(222,228,236,0.86) 48%, rgba(180,192,210,0.74) 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(233,238,244,0.88) 38%, rgba(182,194,210,0.68) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 22px rgba(187,204,230,0.12), 0 2px 8px rgba(0,0,0,0.22);
+      text-shadow:
+        0 1px 2px rgba(0,0,0,0.18),
+        0 0 14px rgba(187,204,230,0.06);
       user-select: none;
       pointer-events: none;
       white-space: nowrap;
       animation: brand-fade 20s ease-out forwards;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.12));
     }
     .brand::after {
       content: "";
       position: absolute;
       inset: -18px -26px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(187,204,230,0.12), transparent 65%);
-      filter: blur(12px);
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 62%);
+      filter: blur(14px);
       z-index: -1;
-      opacity: 0.82;
+      opacity: 0.55;
+    }
+    .brand::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 14px);
+      width: 42%;
+      height: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
+      opacity: 0.42;
+      filter: blur(0.2px);
     }
     @keyframes brand-fade {
       0% { transform: translate(-50%, -50%) scale(1); opacity: 0.94; filter: blur(0px); }
@@ -328,7 +373,7 @@
       transform: translateX(-50%);
       z-index: 5;
       color: rgba(232, 236, 241, 0.62);
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+      font-family: var(--font-display);
       font-size: clamp(15px, 2.15vw, 18px);
       font-style: italic;
       letter-spacing: 0.22em;
@@ -349,6 +394,38 @@
       z-index: 5;
       pointer-events: none;
       overflow: hidden;
+    }
+    .heart-field {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      left: 50%;
+      top: 74%;
+      color: rgba(0, 0, 0, 1);
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      font-size: var(--size, 16px);
+      transform: translate(-50%, 0) scale(0.95);
+      opacity: 0;
+      animation: heart-float var(--dur, 7s) ease-out forwards;
+      filter: blur(0.15px) saturate(0);
+    }
+    @keyframes heart-float {
+      0% {
+        transform: translate(-50%, 22px) scale(0.55) rotate(-6deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(calc(-50% + var(--dx, 0px)), var(--dy, -190px)) scale(var(--scale, 1.9)) rotate(var(--rot, 16deg));
+        opacity: 0;
+      }
     }
     .smoke-puff {
       position: absolute;
@@ -393,6 +470,141 @@
       opacity: 0.16;
       filter: blur(18px);
     }
+    .blessing {
+      position: fixed;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      z-index: 8;
+      width: min(86vw, 760px);
+      padding: 22px 24px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.03);
+      background: rgba(5, 9, 20, 0.16);
+      backdrop-filter: blur(3px);
+      color: rgba(244, 247, 252, 0.95);
+      text-align: center;
+      font: 400 italic clamp(16px, 2.3vw, 22px)/1.8 var(--font-display);
+      letter-spacing: 0.01em;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 700ms ease;
+      pointer-events: none;
+      text-wrap: balance;
+    }
+    .blessing.show {
+      opacity: 1;
+      visibility: visible;
+      animation: blessing-breathe 5600ms ease-in-out infinite;
+    }
+    .blessing-line {
+      display: block;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+    .blessing-line + .blessing-line {
+      margin-top: 6px;
+    }
+    .blessing-line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .blessing.vanish {
+      animation: blessing-smoke-out 3800ms ease-out forwards;
+    }
+    .blessing-line.smoke {
+      animation: blessing-line-smoke 2600ms ease-out forwards;
+      animation-delay: var(--smoke-delay, 0ms);
+    }
+    .blessing-puff {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(238, 243, 251, 0.65) 0%, rgba(230, 238, 248, 0.18) 42%, transparent 78%);
+      filter: blur(1px);
+      opacity: 0;
+      pointer-events: none;
+      animation: blessing-puff-rise var(--dur, 2400ms) ease-out forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+    .epilogue {
+      position: fixed;
+      left: 50%;
+      bottom: 8%;
+      transform: translateX(-50%);
+      z-index: 8;
+      color: rgba(234, 240, 248, 0.72);
+      font: 400 italic clamp(14px, 1.9vw, 18px)/1.5 var(--font-display);
+      letter-spacing: 0.14em;
+      text-shadow: 0 0 12px rgba(170, 200, 226, 0.2);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .epilogue.show {
+      animation: epilogue-fade 5.8s ease-in-out forwards;
+    }
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(158, 194, 232, 0.16), transparent 42%),
+        radial-gradient(circle at 70% 75%, rgba(164, 185, 216, 0.12), transparent 38%),
+        rgba(2, 5, 12, 0.86);
+      color: rgba(236, 242, 251, 0.9);
+      font: 500 clamp(14px, 1.8vw, 18px)/1.4 var(--font-ui);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: opacity 900ms ease, visibility 900ms ease;
+      backdrop-filter: blur(3px);
+    }
+    .loading-dots {
+      display: inline-flex;
+      margin-left: 4px;
+      gap: 2px;
+    }
+    .loading-dots span {
+      opacity: 0.2;
+      animation: loading-dot 1.2s ease-in-out infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    .loading-overlay.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    @keyframes loading-dot {
+      0%, 100% { opacity: 0.2; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-1px); }
+    }
+    @keyframes blessing-breathe {
+      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.01); }
+    }
+    @keyframes blessing-smoke-out {
+      0% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; filter: blur(8px); transform: translate(-50%, -57%) scale(1.03); }
+    }
+    @keyframes blessing-line-smoke {
+      0% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+      100% { opacity: 0; filter: blur(5px); transform: translateY(-16px) scale(1.015); }
+    }
+    @keyframes blessing-puff-rise {
+      0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.7); }
+      14% { opacity: var(--op, 0.55); }
+      100% { opacity: 0; transform: translate3d(var(--dx, 0px), var(--dy, -120px), 0) scale(var(--sc, 3.6)); }
+    }
+    @keyframes epilogue-fade {
+      0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      20% { opacity: 0.88; transform: translateX(-50%) translateY(0); }
+      75% { opacity: 0.88; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+    }
     @keyframes seam-breathe {
       0%, 100% { opacity: 0.28; transform: translateX(-50%) rotate(-6deg) scaleX(0.985); }
       50% { opacity: 0.56; transform: translateX(-50%) rotate(-6deg) scaleX(1); }
@@ -406,35 +618,52 @@
   <div class="rift"></div>
   <div class="seam"></div>
   <div class="sky" id="sky"></div>
+  <div class="heart-field" id="heartField"></div>
   <div class="brand-smoke" id="brandSmoke"></div>
   <div class="music-dock">
     <div class="music-chip" id="musicChip">
       <button id="playBtn" type="button" aria-label="Phát hoặc dừng nhạc">▶</button>
+      <div class="music-progress" aria-hidden="true"><div class="music-progress-bar" id="musicProgressBar"></div></div>
     </div>
-    <audio id="bgm" loop preload="auto">
-      <source src="phúc.mp3 (1).m4a" />
+    <audio id="bgm" preload="none">
+      <source src="music.m4a" />
     </audio>
   </div>
   <div class="brand">Phanh Lộc</div>
   <div class="farewell">đã từng là của nhau</div>
+  <div class="blessing" id="blessingMessage">
+    <span class="blessing-line">Chặng đường mới chắc sẽ nhiều thử thách nhưng cũng đầy cơ hội.</span>
+    <span class="blessing-line">Bọn tao chúc Phanh tương lai sáng lạn, thành công rực rỡ.</span>
+    <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh .</span>
+  </div>
+  <div class="epilogue" id="epilogueMessage">Hẹn ngày hội ngộ.</div>
+  <div class="loading-overlay" id="loadingOverlay">Đang chuẩn bị khung hình<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
   <script>
     const sky = document.getElementById('sky');
+    const heartField = document.getElementById('heartField');
     const brand = document.querySelector('.brand');
     const brandSmoke = document.getElementById('brandSmoke');
     const bgImage = document.getElementById('bgImage');
     const bgm = document.getElementById('bgm');
     const playBtn = document.getElementById('playBtn');
     const musicChip = document.getElementById('musicChip');
+    const musicProgressBar = document.getElementById('musicProgressBar');
+    const blessingMessage = document.getElementById('blessingMessage');
+    const epilogueMessage = document.getElementById('epilogueMessage');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    let isStartingMusic = false;
+    let blessingTimerId = null;
+    let hasShownBlessing = false;
 
     if (document.body.dataset.bg === '1') {
-      bgImage.src = 'download.jpg';
+      bgImage.src = 'z7771436536221_a1c4348aa46cee7ced7ad50068ca783b.jpg';
     }
     const hasMusic = document.body.dataset.music === '1';
     if (!hasMusic) {
       bgm.setAttribute('disabled', 'disabled');
     }
 
-    function addStars(count = 120) {
+    function addStars(count = 72) {
       for (let i = 0; i < count; i++) {
         const star = document.createElement('div');
         star.className = 'star';
@@ -468,7 +697,7 @@
       meteor.addEventListener('animationend', () => meteor.remove());
     }
 
-    function addDust(count = 24) {
+    function addDust(count = 12) {
       for (let i = 0; i < count; i++) {
         const dust = document.createElement('div');
         dust.className = 'star';
@@ -483,7 +712,7 @@
       }
     }
 
-    function addMist(count = 10) {
+    function addMist(count = 4) {
       for (let i = 0; i < count; i++) {
         const mist = document.createElement('div');
         mist.className = 'star';
@@ -521,45 +750,175 @@
       }
     }
 
+    function emitHeartBurst() {
+      const count = 8;
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = '❤';
+        const spread = (Math.random() * 180 - 90).toFixed(1) + 'px';
+        const rise = (-220 - Math.random() * 180).toFixed(1) + 'px';
+        heart.style.left = (50 + Math.random() * 6 - 3).toFixed(2) + '%';
+        heart.style.top = (76 + Math.random() * 4 - 2).toFixed(2) + '%';
+        heart.style.setProperty('--dx', spread);
+        heart.style.setProperty('--dy', rise);
+        heart.style.setProperty('--dur', (6.4 + Math.random() * 0.7).toFixed(2) + 's');
+        heart.style.setProperty('--scale', (0.9 + Math.random() * 0.7).toFixed(2));
+        heart.style.setProperty('--rot', (-16 + Math.random() * 32).toFixed(1) + 'deg');
+        heart.style.setProperty('--size', (12 + Math.random() * 8).toFixed(0) + 'px');
+        heartField.appendChild(heart);
+        heart.addEventListener('animationend', () => heart.remove());
+      }
+    }
+
+    function setMusicUiState(isPlaying) {
+      playBtn.textContent = isPlaying ? '⏸' : '▶';
+      musicChip.classList.toggle('playing', isPlaying);
+      if (!isPlaying) musicChip.classList.remove('cue');
+    }
+
     async function startMusic() {
-      if (!hasMusic) return false;
+      if (!hasMusic || isStartingMusic) return false;
+      isStartingMusic = true;
+      playBtn.disabled = true;
       try {
+        bgm.volume = 1;
         await bgm.play();
-        playBtn.textContent = '⏸';
-        musicChip.classList.add('playing');
+        setMusicUiState(true);
         return true;
       } catch (err) {
+        setMusicUiState(false);
         return false;
+      } finally {
+        isStartingMusic = false;
+        playBtn.disabled = false;
       }
     }
 
-    function toggleMusic() {
+    async function toggleMusic() {
       if (!hasMusic) return;
       if (bgm.paused) {
-        startMusic();
+        if (bgm.readyState < 2) bgm.load();
+        setMusicUiState(true);
+        const started = await startMusic();
+        if (!started) setMusicUiState(false);
       } else {
         bgm.pause();
-        playBtn.textContent = '▶';
-        musicChip.classList.remove('playing');
+        setMusicUiState(false);
       }
     }
 
-    async function tryAutoplay() {
+    function warmAudio() {
       if (!hasMusic) return;
-      await startMusic();
+      bgm.preload = 'metadata';
+      bgm.load();
     }
 
-    addStars();
+    function updateMusicProgress() {
+      if (!musicProgressBar || !bgm.duration || Number.isNaN(bgm.duration)) return;
+      const pct = Math.min(100, Math.max(0, (bgm.currentTime / bgm.duration) * 100));
+      musicProgressBar.style.width = pct.toFixed(2) + '%';
+    }
+
+    function handlePlaybackCue() {
+      if (hasShownBlessing || bgm.paused) {
+        musicChip.classList.remove('cue');
+        return;
+      }
+      const shouldCue = bgm.currentTime >= 12 && bgm.currentTime < 15;
+      musicChip.classList.toggle('cue', shouldCue);
+    }
+
+    function showBlessingMessage() {
+      if (!blessingMessage || hasShownBlessing) return;
+      hasShownBlessing = true;
+      blessingMessage.classList.add('show');
+      const lines = blessingMessage.querySelectorAll('.blessing-line');
+      lines.forEach((line, index) => {
+        setTimeout(() => line.classList.add('show'), index * 850);
+      });
+      const totalLineRevealMs = lines.length * 850;
+      setTimeout(() => {
+        emitBlessingSmoke();
+        lines.forEach((line, index) => {
+          line.style.setProperty('--smoke-delay', (index * 220) + 'ms');
+          line.classList.add('smoke');
+        });
+        blessingMessage.classList.add('vanish');
+      }, totalLineRevealMs + 15000);
+      setTimeout(showEpilogueMessage, totalLineRevealMs + 15000 + 4200);
+    }
+
+    function showEpilogueMessage() {
+      if (!epilogueMessage) return;
+      epilogueMessage.classList.add('show');
+    }
+
+    function getSceneProfile() {
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      if (isMobile) {
+        return { stars: 28, meteorInterval: 2600, initialMeteors: 1, heartBurst: false };
+      }
+      return { stars: 52, meteorInterval: 1700, initialMeteors: 2, heartBurst: true };
+    }
+
+    function hideLoadingOverlay() {
+      if (!loadingOverlay) return;
+      loadingOverlay.classList.add('hide');
+      document.body.classList.add('scene-ready');
+    }
+
+    function emitBlessingSmoke() {
+      if (!blessingMessage) return;
+      const rect = blessingMessage.getBoundingClientRect();
+      const count = 42;
+      for (let i = 0; i < count; i++) {
+        const puff = document.createElement('span');
+        puff.className = 'blessing-puff';
+        const x = rect.left + rect.width * (0.08 + Math.random() * 0.84);
+        const y = rect.top + rect.height * (0.2 + Math.random() * 0.65);
+        puff.style.left = x + 'px';
+        puff.style.top = y + 'px';
+        puff.style.setProperty('--dx', (-44 + Math.random() * 88).toFixed(1) + 'px');
+        puff.style.setProperty('--dy', (-110 - Math.random() * 170).toFixed(1) + 'px');
+        puff.style.setProperty('--sc', (2.8 + Math.random() * 3.6).toFixed(2));
+        puff.style.setProperty('--dur', (1900 + Math.random() * 1700).toFixed(0) + 'ms');
+        puff.style.setProperty('--delay', (Math.random() * 500).toFixed(0) + 'ms');
+        puff.style.setProperty('--op', (0.34 + Math.random() * 0.36).toFixed(2));
+        document.body.appendChild(puff);
+        puff.addEventListener('animationend', () => puff.remove());
+      }
+    }
+
+    function scheduleBlessingMessage() {
+      if (blessingTimerId || hasShownBlessing) return;
+      blessingTimerId = setTimeout(() => {
+        blessingTimerId = null;
+        showBlessingMessage();
+      }, 15000);
+    }
+
+    const scene = getSceneProfile();
+    warmAudio();
+
+    addStars(scene.stars);
     addDust();
     addMist();
-    setInterval(spawnMeteor, 650);
-    for (let i = 0; i < 4; i++) {
-      setTimeout(spawnMeteor, i * 500);
+    if (scene.heartBurst) emitHeartBurst();
+    setInterval(spawnMeteor, scene.meteorInterval);
+    for (let i = 0; i < scene.initialMeteors; i++) {
+      setTimeout(spawnMeteor, i * 900);
     }
     setTimeout(emitSmokeBurst, 14800);
     playBtn.addEventListener('click', toggleMusic);
-    window.addEventListener('load', tryAutoplay);
-    window.addEventListener('focus', tryAutoplay);
+    bgm.addEventListener('play', scheduleBlessingMessage);
+    bgm.addEventListener('timeupdate', updateMusicProgress);
+    bgm.addEventListener('timeupdate', handlePlaybackCue);
+    bgm.addEventListener('pause', handlePlaybackCue);
+    bgm.addEventListener('ended', handlePlaybackCue);
+    window.addEventListener('load', () => {
+      setTimeout(hideLoadingOverlay, 3000);
+    });
   </script>
 </body>
 </html>
