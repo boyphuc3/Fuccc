@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sao băng</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap');
     :root {
       color-scheme: dark;
       --bg1: #02050b;
       --bg2: #08111f;
       --glow: rgba(187, 204, 230, 0.7);
       --star: #f4f7fb;
-      --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
-      --font-ui: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      --font-display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+      --font-ui: "Inter", "Avenir Next", "Segoe UI", system-ui, sans-serif;
     }
     body {
       margin: 0;
@@ -37,10 +38,13 @@
       display: block;
       opacity: 0;
       filter: none;
-      transition: opacity 1400ms ease;
+      transition: opacity 1400ms ease, filter 420ms ease;
     }
     body.scene-ready .background img {
       opacity: 0.93;
+    }
+    body.wish-open .background img {
+      filter: blur(10px) brightness(0.55) saturate(0.85);
     }
     .background::after {
       content: "";
@@ -572,11 +576,16 @@
       z-index: 19;
       width: min(92vw, 520px);
       padding: 16px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,0.015);
-      background: linear-gradient(155deg, rgba(10, 15, 24, 0.09), rgba(4, 7, 13, 0.05));
-      backdrop-filter: blur(30px) saturate(118%);
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+      border-radius: 24px;
+      border: 1px solid rgba(226, 202, 149, 0.2);
+      background:
+        linear-gradient(155deg, rgba(4, 7, 13, 0.88), rgba(2, 4, 8, 0.84)),
+        radial-gradient(circle at 8% 8%, rgba(226, 202, 149, 0.1), transparent 38%);
+      backdrop-filter: blur(26px) saturate(112%);
+      box-shadow:
+        0 24px 58px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        inset 0 0 28px rgba(226, 202, 149, 0.06);
       color: rgba(241, 246, 253, 0.95);
       transition: opacity 420ms ease, transform 420ms ease, visibility 420ms ease;
     }
@@ -588,33 +597,46 @@
     }
     .wish-title {
       margin: 0 0 10px;
-      font: 600 clamp(15px, 2vw, 18px)/1.35 var(--font-ui);
-      letter-spacing: 0.05em;
-      color: rgba(238, 244, 252, 0.8);
-      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+      font: 600 clamp(15px, 2vw, 18px)/1.35 var(--font-display);
+      letter-spacing: 0.06em;
+      color: rgba(242, 227, 188, 0.95);
+      text-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), 0 0 18px rgba(229, 205, 150, 0.14);
     }
     .wish-input {
       width: 100%;
       min-height: 96px;
       resize: vertical;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.045);
-      background: rgba(6, 11, 19, 0.1);
-      color: rgba(245, 248, 253, 0.92);
-      padding: 10px 12px;
-      font: 500 14px/1.5 var(--font-ui);
+      border-radius: 16px;
+      border: 1px solid rgba(226, 202, 149, 0.22);
+      background:
+        linear-gradient(165deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)),
+        rgba(3, 7, 13, 0.58);
+      color: rgba(246, 249, 254, 0.96);
+      padding: 12px 14px;
+      font: 500 14px/1.6 var(--font-ui);
+      letter-spacing: 0.01em;
       outline: none;
       box-sizing: border-box;
       backdrop-filter: blur(10px);
-      transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 10px 22px rgba(0,0,0,0.2);
+      transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
     }
     .wish-input:focus {
-      border-color: rgba(192, 220, 253, 0.28);
-      background: rgba(8, 14, 24, 0.24);
-      box-shadow: 0 0 0 3px rgba(173, 208, 248, 0.1);
+      border-color: rgba(240, 216, 158, 0.58);
+      background:
+        linear-gradient(165deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
+        rgba(5, 10, 18, 0.64);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.16),
+        0 0 0 3px rgba(235, 212, 157, 0.16),
+        0 14px 28px rgba(0,0,0,0.26);
+      transform: translateY(-1px);
     }
     .wish-input::placeholder {
-      color: rgba(228, 236, 246, 0.44);
+      color: rgba(232, 239, 248, 0.54);
+      font-style: italic;
     }
     .wish-actions {
       margin-top: 10px;
@@ -623,25 +645,58 @@
       justify-content: flex-end;
     }
     .wish-btn {
-      border: 1px solid rgba(255,255,255,0.07);
+      border: 1px solid rgba(226, 202, 149, 0.2);
       border-radius: 999px;
-      background: rgba(15, 26, 43, 0.16);
-      color: rgba(245, 249, 254, 0.9);
+      background: linear-gradient(165deg, rgba(13, 22, 37, 0.9), rgba(8, 13, 22, 0.9));
+      color: rgba(245, 237, 218, 0.95);
       font: 600 13px/1 var(--font-ui);
       letter-spacing: 0.03em;
       padding: 10px 14px;
       cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
+    }
+    .wish-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(240, 216, 158, 0.35);
+      box-shadow: 0 14px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.12);
+      filter: brightness(1.04);
+    }
+    .wish-btn:active {
+      transform: translateY(0) scale(0.985);
     }
     .wish-btn.primary {
-      background: rgba(182, 218, 255, 0.1);
-      border-color: rgba(210, 232, 255, 0.16);
-      color: rgba(252, 254, 255, 0.98);
+      background: linear-gradient(135deg, rgba(240, 216, 158, 0.38), rgba(214, 177, 110, 0.3));
+      border-color: rgba(240, 216, 158, 0.5);
+      color: rgba(255, 250, 236, 0.98);
+      box-shadow: 0 12px 24px rgba(120, 88, 38, 0.25), inset 0 1px 0 rgba(255,255,255,0.16);
     }
     .wish-btn.danger {
-      background: rgba(255, 118, 118, 0.12);
-      border-color: rgba(255, 168, 168, 0.18);
-      color: rgba(255, 226, 226, 0.9);
+      background: linear-gradient(135deg, rgba(120, 30, 30, 0.42), rgba(90, 20, 20, 0.35));
+      border-color: rgba(221, 132, 132, 0.28);
+      color: rgba(255, 222, 222, 0.92);
       margin-right: auto;
+    }
+    @media (max-width: 700px) {
+      .wish-panel {
+        width: min(94vw, 520px);
+        padding: 14px;
+        border-radius: 20px;
+      }
+      .wish-title {
+        font-size: clamp(15px, 4.2vw, 18px);
+      }
+      .wish-input {
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .wish-actions {
+        gap: 6px;
+      }
+      .wish-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
     }
     .wish-status {
       margin-top: 8px;
@@ -780,27 +835,24 @@
   </div>
   <div class="epilogue" id="epilogueMessage">Hẹn ngày hội ngộ.</div>
   <div class="wish-panel" id="wishPanel">
-    <p class="wish-title">Để lại lời chúc cho Phanh</p>
-    <input id="wishNameInput" class="wish-input" style="min-height:auto;height:40px;margin-bottom:8px;" maxlength="40" placeholder="Tên của bạn (tuỳ chọn)" />
-    <textarea id="wishInput" class="wish-input" maxlength="280" placeholder="Viết lời chúc của bạn..."></textarea>
+    <p class="wish-title">Heartfelt Notes for Phanh</p>
+    <input id="wishNameInput" class="wish-input" style="min-height:auto;height:40px;margin-bottom:8px;" maxlength="40" placeholder="Your Name" />
+    <textarea id="wishInput" class="wish-input" maxlength="280" placeholder="Writes......." ></textarea>
     <div class="wish-actions">
-      <button type="button" class="wish-btn danger" id="wishClearBtn">Xóa lời chúc cũ</button>
-      <button type="button" class="wish-btn" id="wishSkipBtn">Để sau</button>
-      <button type="button" class="wish-btn primary" id="wishSaveBtn">Gửi lời chúc</button>
+      <button type="button" class="wish-btn danger" id="wishClearBtn">Clear</button>
+      <button type="button" class="wish-btn" id="wishSkipBtn">Later</button>
+      <button type="button" class="wish-btn primary" id="wishSaveBtn">Send</button>
     </div>
     <div class="wish-status" id="wishStatus"></div>
   </div>
-  <div class="wishes-wall" id="wishesWall"><div id="wishesList"></div></div>
+  <div class="wishes-wall" id="wishesWall" style="display:none;"><div id="wishesList"></div></div>
   <div class="loading-overlay" id="loadingOverlay"><span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
-    const SUPABASE_URL = 'https://ctwjvsnlwakojjjrbehi.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_8rzaZGsQ46tAyvjqPjAuOw_OH23xXrL';
-    const WISHES_TABLE = 'wishes';
     const EMAILJS_PUBLIC_KEY = 'rbFLlPz18RcEoThD8';
     const EMAILJS_SERVICE_ID = 'service_pb0ykc5';
     const EMAILJS_TEMPLATE_ID = 'template_r3inua3';
-    const WISH_RECIPIENT_EMAIL = 'phuc.hp2203@gmail.com';
+    const WISH_RECIPIENT_EMAIL = 'bichanh25474@gmail.com';
     const sky = document.getElementById('sky');
     const heartField = document.getElementById('heartField');
     const brand = document.querySelector('.brand');
@@ -819,7 +871,6 @@
     const wishClearBtn = document.getElementById('wishClearBtn');
     const wishSkipBtn = document.getElementById('wishSkipBtn');
     const wishStatus = document.getElementById('wishStatus');
-    const wishesList = document.getElementById('wishesList');
     const loadingOverlay = document.getElementById('loadingOverlay');
     let isStartingMusic = false;
     let blessingTimerId = null;
@@ -1064,16 +1115,15 @@
     function openWishPanel() {
       if (!wishPanel) return;
       wishPanel.classList.remove('hidden');
-      const savedWish = localStorage.getItem('guestWishMessage');
-      if (savedWish && wishInput && !wishInput.value) {
-        wishInput.value = savedWish;
-      }
+      document.body.classList.add('wish-open');
+      if (wishInput) wishInput.value = '';
       if (wishInput) wishInput.focus();
     }
 
     function closeWishPanel() {
       if (!wishPanel) return;
       wishPanel.classList.add('hidden');
+      document.body.classList.remove('wish-open');
     }
 
     function escapeHtml(text) {
@@ -1089,21 +1139,6 @@
       wishStatus.style.color = isError ? 'rgba(255, 191, 191, 0.92)' : 'rgba(223, 236, 251, 0.8)';
     }
 
-    function renderWishes(items) {
-      if (!wishesList) return;
-      if (!items || items.length === 0) {
-        wishesList.innerHTML = '<div class="wish-item"><div class="wish-item-msg">Chưa có lời chúc nào.</div></div>';
-        return;
-      }
-      wishesList.innerHTML = items.map((item) => {
-        const name = (item.name || 'Bạn ẩn danh').trim() || 'Bạn ẩn danh';
-        return '<div class="wish-item">' +
-          '<div class="wish-item-name">' + escapeHtml(name) + '</div>' +
-          '<div class="wish-item-msg">' + escapeHtml(item.message || '') + '</div>' +
-        '</div>';
-      }).join('');
-    }
-
     function canSendWishEmail() {
       return (
         typeof window.emailjs !== 'undefined' &&
@@ -1117,33 +1152,22 @@
     async function sendWishToEmail(name, text) {
       if (!canSendWishEmail()) return false;
       window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      const senderName = name || 'Bạn ẩn danh';
+      const sentAt = new Date().toLocaleString('vi-VN');
       const result = await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        from_name: name || 'Bạn ẩn danh',
+        from_name: senderName,
+        name: senderName,
         wish_message: text,
+        message: text,
+        content: text,
         to_email: WISH_RECIPIENT_EMAIL,
-        sent_at: new Date().toLocaleString('vi-VN')
+        sent_at: sentAt,
+        time: sentAt
       });
       if (!result || (result.status !== 200 && result.text !== 'OK')) {
         throw new Error('EMAILJS_UNEXPECTED_RESPONSE');
       }
       return true;
-    }
-
-    async function fetchWishes() {
-      try {
-        const url = SUPABASE_URL + '/rest/v1/' + WISHES_TABLE + '?select=id,name,message,created_at&order=created_at.desc&limit=20';
-        const response = await fetch(url, {
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: 'Bearer ' + SUPABASE_ANON_KEY
-          }
-        });
-        if (!response.ok) return;
-        const data = await response.json();
-        renderWishes(data);
-      } catch (err) {
-        // ignore transient fetch errors on client side
-      }
     }
 
     async function submitWishMessage() {
@@ -1156,20 +1180,6 @@
       try {
         setWishStatus('Đang gửi lời chúc...');
         if (wishSaveBtn) wishSaveBtn.disabled = true;
-        const response = await fetch(SUPABASE_URL + '/rest/v1/' + WISHES_TABLE, {
-          method: 'POST',
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: 'Bearer ' + SUPABASE_ANON_KEY,
-            'Content-Type': 'application/json',
-            Prefer: 'return=representation'
-          },
-          body: JSON.stringify([{ name: name || null, message: text }])
-        });
-        if (!response.ok) {
-          setWishStatus('Gửi chưa thành công, bạn thử lại nhé.', true);
-          return;
-        }
         localStorage.setItem('guestWishMessage', text);
         if (wishInput) wishInput.value = '';
         let emailed = false;
@@ -1186,11 +1196,14 @@
           !emailed
         );
         if (emailed) {
+          if (hasMusic && bgm.paused) {
+            if (bgm.readyState < 2) bgm.load();
+            await startMusic();
+          }
           closeWishPanel();
         } else {
           console.error('EmailJS send failed:', emailError);
         }
-        fetchWishes();
       } catch (err) {
         setWishStatus('Lỗi kết nối, bạn thử lại nhé.', true);
       } finally {
@@ -1199,29 +1212,17 @@
     }
 
     async function clearAllWishes() {
-      const ok = window.confirm('Bạn chắc chắn muốn xóa toàn bộ lời chúc cũ?');
-      if (!ok) return;
-      try {
-        setWishStatus('Đang xóa lời chúc...');
-        if (wishClearBtn) wishClearBtn.disabled = true;
-        const response = await fetch(SUPABASE_URL + '/rest/v1/' + WISHES_TABLE + '?id=gt.0', {
-          method: 'DELETE',
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: 'Bearer ' + SUPABASE_ANON_KEY
-          }
-        });
-        if (!response.ok) {
-          setWishStatus('Không xóa được. Cần bật quyền DELETE trong Supabase.', true);
-          return;
-        }
-        setWishStatus('Đã xóa toàn bộ lời chúc cũ.');
-        fetchWishes();
-      } catch (err) {
-        setWishStatus('Lỗi kết nối khi xóa, bạn thử lại nhé.', true);
-      } finally {
-        if (wishClearBtn) wishClearBtn.disabled = false;
+      if (!wishInput) return;
+      wishInput.value = '';
+      setWishStatus('Đã xóa nội dung đang nhập.');
+    }
+
+    async function skipWishAndPlay() {
+      if (hasMusic && bgm.paused) {
+        if (bgm.readyState < 2) bgm.load();
+        await startMusic();
       }
+      closeWishPanel();
     }
 
     function emitBlessingSmoke() {
@@ -1275,7 +1276,7 @@
     bgm.addEventListener('ended', handlePlaybackCue);
     if (wishSaveBtn) wishSaveBtn.addEventListener('click', submitWishMessage);
     if (wishClearBtn) wishClearBtn.addEventListener('click', clearAllWishes);
-    if (wishSkipBtn) wishSkipBtn.addEventListener('click', closeWishPanel);
+    if (wishSkipBtn) wishSkipBtn.addEventListener('click', skipWishAndPlay);
     if (wishInput) {
       wishInput.addEventListener('keydown', (event) => {
         if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
@@ -1285,8 +1286,6 @@
     }
     window.addEventListener('load', () => {
       openWishPanel();
-      fetchWishes();
-      setInterval(fetchWishes, 12000);
       setTimeout(hideLoadingOverlay, 3000);
     });
   </script>
