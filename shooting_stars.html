@@ -38,7 +38,7 @@
       object-fit: cover;
       display: block;
       opacity: 0;
-      filter: grayscale(0.88) contrast(1.2) brightness(0.84) saturate(1.05);
+      filter: none;
       transition: opacity 1400ms ease;
     }
     body.scene-ready .background img {
@@ -49,9 +49,7 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 56%, rgba(12, 24, 42, 0.05), rgba(2, 5, 11, 0.38) 72%, rgba(1, 2, 8, 0.62) 100%),
-        linear-gradient(180deg, rgba(2, 5, 11, 0.08), rgba(1, 3, 10, 0.56)),
-        radial-gradient(circle at center, transparent 42%, rgba(1, 3, 10, 0.22) 100%);
+        radial-gradient(circle at center, transparent 58%, rgba(8, 14, 24, 0.08) 100%);
     }
     .rift {
       position: fixed;
@@ -323,7 +321,7 @@
       transform: translate(-50%, -50%);
       z-index: 5;
       font-family: var(--font-display);
-      font-size: clamp(30px, 6vw, 70px);
+      font-size: clamp(24px, 5vw, 58px);
       font-style: italic;
       font-weight: 300;
       letter-spacing: 0.22em;
@@ -374,28 +372,6 @@
       70% { transform: translate(-50%, -50%) scale(1); opacity: 0.92; filter: blur(0px); }
       86% { transform: translate(-50%, -50%) scale(1.01); opacity: 0.55; filter: blur(0.8px); }
       100% { transform: translate(-50%, -50%) scale(1.03); opacity: 0; filter: blur(3px); }
-    }
-    .farewell {
-      position: fixed;
-      left: 50%;
-      bottom: 0.5%;
-      transform: translateX(-50%);
-      z-index: 5;
-      color: rgba(232, 236, 241, 0.62);
-      font-family: var(--font-display);
-      font-size: clamp(15px, 2.15vw, 18px);
-      font-style: italic;
-      letter-spacing: 0.22em;
-      text-indent: 0.22em;
-      text-transform: lowercase;
-      user-select: none;
-      pointer-events: none;
-      opacity: 0.68;
-      animation: farewell-fade 9s ease-in-out infinite;
-    }
-    @keyframes farewell-fade {
-      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
-      50% { opacity: 0.84; transform: translateX(-50%) translateY(-1px); }
     }
     .brand-smoke {
       position: fixed;
@@ -482,27 +458,27 @@
     .blessing {
       position: fixed;
       left: 50%;
-      top: 52%;
+      top: 50%;
       transform: translate(-50%, -50%);
       z-index: 8;
       width: min(86vw, 760px);
       padding: 22px 24px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.02);
-      background: rgba(5, 9, 20, 0.04);
-      backdrop-filter: blur(0.8px);
-      color: rgba(242, 246, 252, 0.72);
+      border: 1px solid rgba(255,255,255,0.007);
+      background: rgba(5, 9, 20, 0.012);
+      backdrop-filter: blur(0.7px);
+      color: rgba(236, 242, 250, 0.72);
       text-align: center;
       font: 400 italic clamp(16px, 2.3vw, 22px)/1.8 var(--font-display);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 1100ms ease;
+      transition: opacity 1500ms ease;
       pointer-events: none;
       text-wrap: balance;
       text-shadow:
-        0 1px 12px rgba(16, 22, 36, 0.18),
-        0 0 24px rgba(220, 230, 245, 0.1);
+        0 1px 14px rgba(16, 22, 36, 0.2),
+        0 0 30px rgba(220, 230, 245, 0.14);
     }
     .blessing.show {
       opacity: 1;
@@ -514,7 +490,7 @@
       opacity: 0;
       transform: translateY(14px) scale(0.985);
       filter: blur(2px);
-      transition: opacity 1300ms ease, transform 1300ms ease, filter 1300ms ease;
+      transition: opacity 1900ms ease, transform 1900ms ease, filter 1900ms ease;
     }
     .blessing-line + .blessing-line {
       margin-top: 6px;
@@ -523,13 +499,13 @@
       opacity: 0.74;
       transform: translateY(0) scale(1);
       filter: blur(0);
-      animation: line-cinematic 3000ms ease-in-out both;
+      animation: line-cinematic 5000ms ease-in-out both;
     }
     .blessing.vanish {
       animation: blessing-smoke-out 4200ms ease-out forwards;
     }
     .blessing-line.smoke {
-      animation: blessing-line-smoke 3000ms ease-out forwards;
+      animation: blessing-line-smoke 3800ms ease-out forwards;
       animation-delay: var(--smoke-delay, 0ms);
     }
     .blessing-puff {
@@ -567,20 +543,27 @@
       display: grid;
       place-items: center;
       background:
-        radial-gradient(circle at 30% 25%, rgba(158, 194, 232, 0.16), transparent 42%),
-        radial-gradient(circle at 70% 75%, rgba(164, 185, 216, 0.12), transparent 38%),
-        rgba(2, 5, 12, 0.86);
-      color: rgba(236, 242, 251, 0.9);
+        radial-gradient(circle at 50% 42%, rgba(12, 18, 30, 0.2), rgba(2, 4, 10, 0.9) 74%, rgba(1, 2, 6, 0.98) 100%),
+        linear-gradient(180deg, rgba(4, 7, 12, 0.72), rgba(3, 5, 10, 0.86)),
+        url('z7773202571825_3d5e1c34a28789c434ca1717cd6f7029.jpg') center center / cover no-repeat;
+      color: rgba(236, 242, 251, 0.94);
       font: 500 clamp(14px, 1.8vw, 18px)/1.4 var(--font-ui);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       transition: opacity 900ms ease, visibility 900ms ease;
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(4px) saturate(70%);
+      text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.45),
+        0 0 18px rgba(170, 196, 232, 0.18);
+      justify-items: center;
+      align-items: center;
+      text-align: center;
     }
     .loading-dots {
       display: inline-flex;
       margin-left: 4px;
       gap: 2px;
+      font-size: 1.5em;
     }
     .loading-dots span {
       opacity: 0.2;
@@ -592,6 +575,70 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+    .wish-panel {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 19;
+      width: min(92vw, 520px);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(7, 12, 22, 0.62);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.32);
+      color: rgba(241, 246, 253, 0.95);
+      transition: opacity 420ms ease, transform 420ms ease, visibility 420ms ease;
+    }
+    .wish-panel.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, -46%);
+    }
+    .wish-title {
+      margin: 0 0 10px;
+      font: 600 clamp(15px, 2vw, 18px)/1.35 var(--font-ui);
+      letter-spacing: 0.04em;
+    }
+    .wish-input {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(3, 7, 14, 0.45);
+      color: rgba(245, 248, 253, 0.96);
+      padding: 10px 12px;
+      font: 500 14px/1.5 var(--font-ui);
+      outline: none;
+      box-sizing: border-box;
+    }
+    .wish-input::placeholder {
+      color: rgba(228, 236, 246, 0.56);
+    }
+    .wish-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .wish-btn {
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      background: rgba(15, 26, 43, 0.68);
+      color: rgba(245, 249, 254, 0.94);
+      font: 600 13px/1 var(--font-ui);
+      letter-spacing: 0.03em;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .wish-btn.primary {
+      background: rgba(182, 218, 255, 0.28);
+      border-color: rgba(210, 232, 255, 0.42);
+      color: rgba(252, 254, 255, 0.98);
     }
     @keyframes loading-dot {
       0%, 100% { opacity: 0.2; transform: translateY(0); }
@@ -609,7 +656,7 @@
         filter: blur(0);
       }
       100% {
-        opacity: 0.7;
+        opacity: 0.8;
         transform: translateY(0) scale(1);
         filter: blur(0.15px);
       }
@@ -643,13 +690,8 @@
     }
     @media (max-width: 700px) {
       .brand {
-        top: 45%;
-        font-size: clamp(22px, 8.4vw, 44px);
-        letter-spacing: 0.14em;
-      }
-      .farewell {
-        bottom: 2.2%;
-        font-size: clamp(13px, 3.8vw, 16px);
+        top: 48%;
+        font-size: clamp(20px, 7.4vw, 38px);
         letter-spacing: 0.14em;
       }
       .music-dock {
@@ -660,7 +702,7 @@
         width: 46px;
       }
       .blessing {
-        top: 54%;
+        top: 52%;
         width: min(90vw, 620px);
         padding: 16px 14px;
         font-size: clamp(14px, 4vw, 18px);
@@ -696,14 +738,21 @@
     </audio>
   </div>
   <div class="brand">Phanh Lộc</div>
-  <div class="farewell">đã từng là của nhau</div>
   <div class="blessing" id="blessingMessage">
     <span class="blessing-line">Chặng đường mới chắc sẽ nhiều thử thách nhưng cũng đầy cơ hội.</span>
     <span class="blessing-line">Bọn tao chúc Phanh tương lai sáng lạn, thành công rực rỡ.</span>
-    <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh.</span>
+    <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh ❤️</span>
   </div>
   <div class="epilogue" id="epilogueMessage">Hẹn ngày hội ngộ.</div>
-  <div class="loading-overlay" id="loadingOverlay">Đang chuẩn bị khung hình<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
+  <div class="wish-panel" id="wishPanel">
+    <p class="wish-title">Để lại lời chúc cho Phanh</p>
+    <textarea id="wishInput" class="wish-input" maxlength="280" placeholder="Viết lời chúc của bạn..."></textarea>
+    <div class="wish-actions">
+      <button type="button" class="wish-btn" id="wishSkipBtn">Để sau</button>
+      <button type="button" class="wish-btn primary" id="wishSaveBtn">Lưu lời chúc</button>
+    </div>
+  </div>
+  <div class="loading-overlay" id="loadingOverlay"><span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
   <script>
     const sky = document.getElementById('sky');
     const heartField = document.getElementById('heartField');
@@ -716,10 +765,19 @@
     const musicProgressBar = document.getElementById('musicProgressBar');
     const blessingMessage = document.getElementById('blessingMessage');
     const epilogueMessage = document.getElementById('epilogueMessage');
+    const wishPanel = document.getElementById('wishPanel');
+    const wishInput = document.getElementById('wishInput');
+    const wishSaveBtn = document.getElementById('wishSaveBtn');
+    const wishSkipBtn = document.getElementById('wishSkipBtn');
     const loadingOverlay = document.getElementById('loadingOverlay');
     let isStartingMusic = false;
     let blessingTimerId = null;
     let hasShownBlessing = false;
+    let blessingVanishStarted = false;
+    let blessingLinesShown = 0;
+    let blessingVanishAt = Infinity;
+    let epilogueAt = Infinity;
+    const blessingBeatTimes = [15.0, 18.6, 22.4];
 
     if (document.body.dataset.bg === '1') {
       bgImage.src = 'z7771436536221_a1c4348aa46cee7ced7ad50068ca783b.jpg';
@@ -901,19 +959,37 @@
       hasShownBlessing = true;
       blessingMessage.classList.add('show');
       const lines = blessingMessage.querySelectorAll('.blessing-line');
-      lines.forEach((line, index) => {
-        setTimeout(() => line.classList.add('show'), index * 1900);
-      });
-      const totalLineRevealMs = lines.length * 1900;
-      setTimeout(() => {
+      blessingLinesShown = 0;
+      blessingVanishStarted = false;
+      const lastBeat = blessingBeatTimes[Math.min(blessingBeatTimes.length, lines.length) - 1] || 15;
+      blessingVanishAt = lastBeat + 15;
+      epilogueAt = blessingVanishAt + 4.6;
+    }
+
+    function updateBlessingByMusicTime() {
+      if (!hasShownBlessing || !blessingMessage) return;
+      const lines = blessingMessage.querySelectorAll('.blessing-line');
+      for (let i = blessingLinesShown; i < lines.length; i++) {
+        const beatAt = blessingBeatTimes[i] ?? (blessingBeatTimes[blessingBeatTimes.length - 1] + (i - blessingBeatTimes.length + 1) * 2.6);
+        if (bgm.currentTime >= beatAt) {
+          lines[i].classList.add('show');
+          blessingLinesShown = i + 1;
+        } else {
+          break;
+        }
+      }
+      if (!blessingVanishStarted && bgm.currentTime >= blessingVanishAt) {
+        blessingVanishStarted = true;
         emitBlessingSmoke();
         lines.forEach((line, index) => {
           line.style.setProperty('--smoke-delay', (index * 300) + 'ms');
           line.classList.add('smoke');
         });
         blessingMessage.classList.add('vanish');
-      }, totalLineRevealMs + 15000);
-      setTimeout(showEpilogueMessage, totalLineRevealMs + 15000 + 4600);
+      }
+      if (bgm.currentTime >= epilogueAt) {
+        showEpilogueMessage();
+      }
     }
 
     function showEpilogueMessage() {
@@ -933,6 +1009,32 @@
       if (!loadingOverlay) return;
       loadingOverlay.classList.add('hide');
       document.body.classList.add('scene-ready');
+    }
+
+    function openWishPanel() {
+      if (!wishPanel) return;
+      wishPanel.classList.remove('hidden');
+      const savedWish = localStorage.getItem('guestWishMessage');
+      if (savedWish && wishInput && !wishInput.value) {
+        wishInput.value = savedWish;
+      }
+      if (wishInput) wishInput.focus();
+    }
+
+    function closeWishPanel() {
+      if (!wishPanel) return;
+      wishPanel.classList.add('hidden');
+    }
+
+    function saveWishMessage() {
+      if (!wishInput) return;
+      const text = wishInput.value.trim();
+      if (!text) {
+        closeWishPanel();
+        return;
+      }
+      localStorage.setItem('guestWishMessage', text);
+      closeWishPanel();
     }
 
     function emitBlessingSmoke() {
@@ -981,9 +1083,20 @@
     bgm.addEventListener('play', scheduleBlessingMessage);
     bgm.addEventListener('timeupdate', updateMusicProgress);
     bgm.addEventListener('timeupdate', handlePlaybackCue);
+    bgm.addEventListener('timeupdate', updateBlessingByMusicTime);
     bgm.addEventListener('pause', handlePlaybackCue);
     bgm.addEventListener('ended', handlePlaybackCue);
+    if (wishSaveBtn) wishSaveBtn.addEventListener('click', saveWishMessage);
+    if (wishSkipBtn) wishSkipBtn.addEventListener('click', closeWishPanel);
+    if (wishInput) {
+      wishInput.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+          saveWishMessage();
+        }
+      });
+    }
     window.addEventListener('load', () => {
+      openWishPanel();
       setTimeout(hideLoadingOverlay, 3000);
     });
   </script>

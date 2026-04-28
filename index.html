@@ -12,6 +12,9 @@
       --bg2: #08111f;
       --glow: rgba(187, 204, 230, 0.7);
       --star: #f4f7fb;
+      --lux-gold: rgba(240, 216, 158, 0.92);
+      --lux-gold-soft: rgba(226, 202, 149, 0.5);
+      --lux-ink: rgba(4, 7, 13, 0.9);
       --font-display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
       --font-ui: "Inter", "Avenir Next", "Segoe UI", system-ui, sans-serif;
     }
@@ -577,7 +580,7 @@
       width: min(92vw, 520px);
       padding: 16px;
       border-radius: 24px;
-      border: 1px solid rgba(226, 202, 149, 0.2);
+      border: 1px solid rgba(226, 202, 149, 0.24);
       background:
         linear-gradient(155deg, rgba(4, 7, 13, 0.88), rgba(2, 4, 8, 0.84)),
         radial-gradient(circle at 8% 8%, rgba(226, 202, 149, 0.1), transparent 38%);
@@ -587,7 +590,7 @@
         inset 0 1px 0 rgba(255,255,255,0.05),
         inset 0 0 28px rgba(226, 202, 149, 0.06);
       color: rgba(241, 246, 253, 0.95);
-      transition: opacity 420ms ease, transform 420ms ease, visibility 420ms ease;
+      transition: opacity 480ms cubic-bezier(.22,.61,.36,1), transform 480ms cubic-bezier(.22,.61,.36,1), visibility 480ms ease, box-shadow 260ms ease;
     }
     .wish-panel.hidden {
       opacity: 0;
@@ -597,9 +600,9 @@
     }
     .wish-title {
       margin: 0 0 10px;
-      font: 600 clamp(15px, 2vw, 18px)/1.35 var(--font-display);
-      letter-spacing: 0.06em;
-      color: rgba(242, 227, 188, 0.95);
+      font: 600 clamp(17px, 2.2vw, 22px)/1.32 var(--font-display);
+      letter-spacing: 0.08em;
+      color: var(--lux-gold);
       text-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), 0 0 18px rgba(229, 205, 150, 0.14);
     }
     .wish-input {
@@ -607,21 +610,21 @@
       min-height: 96px;
       resize: vertical;
       border-radius: 16px;
-      border: 1px solid rgba(226, 202, 149, 0.22);
+      border: 1px solid rgba(226, 202, 149, 0.24);
       background:
         linear-gradient(165deg, rgba(255,255,255,0.07), rgba(255,255,255,0.01)),
         rgba(3, 7, 13, 0.58);
       color: rgba(246, 249, 254, 0.96);
       padding: 12px 14px;
-      font: 500 14px/1.6 var(--font-ui);
-      letter-spacing: 0.01em;
+      font: 500 14px/1.72 var(--font-ui);
+      letter-spacing: 0.02em;
       outline: none;
       box-sizing: border-box;
       backdrop-filter: blur(10px);
       box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.12),
         0 10px 22px rgba(0,0,0,0.2);
-      transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+      transition: border-color 260ms ease, background 260ms ease, box-shadow 260ms ease, transform 260ms ease;
     }
     .wish-input:focus {
       border-color: rgba(240, 216, 158, 0.58);
@@ -635,8 +638,9 @@
       transform: translateY(-1px);
     }
     .wish-input::placeholder {
-      color: rgba(232, 239, 248, 0.54);
+      color: rgba(232, 239, 248, 0.5);
       font-style: italic;
+      letter-spacing: 0.03em;
     }
     .wish-actions {
       margin-top: 10px;
@@ -645,16 +649,16 @@
       justify-content: flex-end;
     }
     .wish-btn {
-      border: 1px solid rgba(226, 202, 149, 0.2);
+      border: 1px solid rgba(226, 202, 149, 0.24);
       border-radius: 999px;
       background: linear-gradient(165deg, rgba(13, 22, 37, 0.9), rgba(8, 13, 22, 0.9));
       color: rgba(245, 237, 218, 0.95);
       font: 600 13px/1 var(--font-ui);
-      letter-spacing: 0.03em;
+      letter-spacing: 0.05em;
       padding: 10px 14px;
       cursor: pointer;
       box-shadow: 0 10px 20px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.08);
-      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
+      transition: transform 220ms cubic-bezier(.22,.61,.36,1), box-shadow 220ms ease, border-color 220ms ease, filter 220ms ease, background 220ms ease;
     }
     .wish-btn:hover {
       transform: translateY(-1px);
@@ -667,7 +671,7 @@
     }
     .wish-btn.primary {
       background: linear-gradient(135deg, rgba(240, 216, 158, 0.38), rgba(214, 177, 110, 0.3));
-      border-color: rgba(240, 216, 158, 0.5);
+      border-color: rgba(240, 216, 158, 0.58);
       color: rgba(255, 250, 236, 0.98);
       box-shadow: 0 12px 24px rgba(120, 88, 38, 0.25), inset 0 1px 0 rgba(255,255,255,0.16);
     }
@@ -701,7 +705,8 @@
     .wish-status {
       margin-top: 8px;
       min-height: 18px;
-      font: 500 12px/1.4 var(--font-ui);
+      font: 500 12px/1.45 var(--font-ui);
+      letter-spacing: 0.02em;
       color: rgba(223, 236, 251, 0.66);
     }
     @keyframes loading-dot {
