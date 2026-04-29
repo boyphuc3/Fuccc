@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sao băng</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+  <title>Shooting Stars</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap');
     :root {
@@ -366,10 +368,10 @@
       filter: blur(0.2px);
     }
     @keyframes brand-fade {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 0.94; filter: blur(0px); }
-      70% { transform: translate(-50%, -50%) scale(1); opacity: 0.92; filter: blur(0px); }
-      86% { transform: translate(-50%, -50%) scale(1.01); opacity: 0.55; filter: blur(0.8px); }
-      100% { transform: translate(-50%, -50%) scale(1.03); opacity: 0; filter: blur(3px); }
+      0% { transform: translate(-50%, -50%); opacity: 0.94; filter: blur(0px); }
+      70% { transform: translate(-50%, -50%); opacity: 0.92; filter: blur(0px); }
+      86% { transform: translate(-50%, -50%); opacity: 0.55; filter: blur(0.8px); }
+      100% { transform: translate(-50%, -50%); opacity: 0; filter: blur(3px); }
     }
     .brand-smoke {
       position: fixed;
@@ -465,9 +467,9 @@
       border: 1px solid rgba(255,255,255,0.008);
       background: rgba(5, 9, 20, 0.015);
       backdrop-filter: blur(0.8px);
-      color: rgba(236, 242, 250, 0.88);
+      color: rgba(242, 247, 252, 0.98);
       text-align: center;
-      font: 400 italic clamp(16px, 2.3vw, 22px)/1.8 var(--font-display);
+      font: 600 italic clamp(16px, 2.3vw, 22px)/1.8 var(--font-display);
       letter-spacing: 0.03em;
       opacity: 0;
       visibility: hidden;
@@ -491,7 +493,7 @@
       margin-top: 6px;
     }
     .blessing-line.show {
-      opacity: 0.9;
+      opacity: 0.95;
       transform: translateY(0) scale(1);
       filter: blur(0);
       animation: blessing-line-cinematic 4600ms ease-in-out both;
@@ -515,21 +517,41 @@
       animation: blessing-puff-rise var(--dur, 2400ms) ease-out forwards;
       animation-delay: var(--delay, 0ms);
     }
+    .access-spark {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 246, 214, 0.98) 0%, rgba(240, 216, 158, 0.76) 55%, transparent 100%);
+      box-shadow: 0 0 12px rgba(240, 216, 158, 0.4);
+      pointer-events: none;
+      z-index: 33;
+      animation: access-firework var(--dur, 1200ms) ease-out forwards;
+    }
     .epilogue {
       position: fixed;
       left: 50%;
-      bottom: 8%;
-      transform: translateX(-50%);
+      top: 48%;
+      transform: translate(-50%, -50%);
       z-index: 8;
       color: rgba(234, 240, 248, 0.72);
-      font: 400 italic clamp(14px, 1.9vw, 18px)/1.5 var(--font-display);
-      letter-spacing: 0.14em;
+      font: 500 italic clamp(18px, 2.6vw, 26px)/1.5 var(--font-display);
+      letter-spacing: 0.22em;
       text-shadow: 0 0 12px rgba(170, 200, 226, 0.2);
       opacity: 0;
       pointer-events: none;
     }
     .epilogue.show {
       animation: epilogue-fade 5.8s ease-in-out forwards;
+    }
+    #accessSuccessMessage {
+      z-index: 32;
+      color: rgba(244, 230, 194, 0.96);
+      font-size: clamp(28px, 4.8vw, 52px);
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 18px rgba(226, 202, 149, 0.34);
     }
     .loading-overlay {
       position: fixed;
@@ -570,6 +592,80 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+    .access-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(1, 3, 8, 0.82);
+      backdrop-filter: blur(10px);
+    }
+    .access-gate.hidden {
+      display: none;
+    }
+    .access-card {
+      width: min(86vw, 360px);
+      border-radius: 14px;
+      border: 1px solid rgba(240, 216, 158, 0.24);
+      background:
+        linear-gradient(160deg, rgba(4, 7, 13, 0.94), rgba(2, 4, 8, 0.92)),
+        radial-gradient(circle at 14% 12%, rgba(240, 216, 158, 0.11), transparent 42%);
+      padding: 12px;
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+      color: rgba(242, 247, 252, 0.94);
+    }
+    .access-title {
+      margin: 0 0 6px;
+      font: 600 17px/1.25 var(--font-display);
+      letter-spacing: 0.04em;
+      color: var(--lux-gold);
+    }
+    .access-question {
+      margin: 0 0 8px;
+      font: 500 13px/1.45 var(--font-ui);
+      opacity: 0.92;
+    }
+    .access-input {
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 12px;
+      border: 1px solid rgba(240, 216, 158, 0.26);
+      background: rgba(8, 12, 20, 0.82);
+      color: rgba(243, 248, 252, 0.96);
+      padding: 9px 11px;
+      font: 500 13px/1.35 var(--font-ui);
+      outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .access-input:focus {
+      border-color: rgba(240, 216, 158, 0.48);
+      box-shadow: 0 0 0 3px rgba(240, 216, 158, 0.14);
+    }
+    .access-error {
+      min-height: 16px;
+      margin: 6px 2px 0;
+      font: 500 11px/1.35 var(--font-ui);
+      color: rgba(255, 176, 176, 0.95);
+    }
+    .access-btn {
+      margin-top: 8px;
+      border: 1px solid rgba(240, 216, 158, 0.46);
+      background: linear-gradient(135deg, rgba(240, 216, 158, 0.3), rgba(214, 177, 110, 0.28));
+      color: rgba(255, 251, 240, 0.98);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font: 600 12px/1 var(--font-ui);
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+    }
+    .access-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+      box-shadow: 0 8px 18px rgba(90, 64, 20, 0.26);
     }
     .wish-panel {
       position: fixed;
@@ -714,32 +810,37 @@
       50% { opacity: 1; transform: translateY(-1px); }
     }
     @keyframes blessing-breathe {
-      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 0.88; transform: translate(-50%, -50%) scale(1.01); }
+      0%, 100% { opacity: 0.7; transform: translate(-50%, -50%); }
+      50% { opacity: 0.88; transform: translate(-50%, -50%); }
     }
     @keyframes blessing-smoke-out {
       0% { opacity: 1; filter: blur(0); transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; filter: blur(8px); transform: translate(-50%, -57%) scale(1.03); }
+      100% { opacity: 0; filter: blur(8px); transform: translate(-50%, -57%) scale(1); }
     }
     @keyframes blessing-line-smoke {
       0% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
-      100% { opacity: 0; filter: blur(5px); transform: translateY(-16px) scale(1.015); }
+      100% { opacity: 0; filter: blur(5px); transform: translateY(-16px) scale(1); }
     }
     @keyframes blessing-line-cinematic {
-      0% { opacity: 0; transform: translateY(16px) scale(0.982); filter: blur(2.8px); }
-      35% { opacity: 0.9; transform: translateY(0) scale(1); filter: blur(0); }
-      100% { opacity: 0.82; transform: translateY(0) scale(1); filter: blur(0.12px); }
+      0% { opacity: 0; transform: translateY(16px); filter: blur(2.8px); }
+      35% { opacity: 0.9; transform: translateY(0); filter: blur(0); }
+      100% { opacity: 0.82; transform: translateY(0); filter: blur(0.12px); }
     }
     @keyframes blessing-puff-rise {
       0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.7); }
       14% { opacity: var(--op, 0.55); }
       100% { opacity: 0; transform: translate3d(var(--dx, 0px), var(--dy, -120px), 0) scale(var(--sc, 3.6)); }
     }
+    @keyframes access-firework {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      15% { opacity: 1; }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(var(--sc, 1.6)); }
+    }
     @keyframes epilogue-fade {
-      0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-      20% { opacity: 0.88; transform: translateX(-50%) translateY(0); }
-      75% { opacity: 0.88; transform: translateX(-50%) translateY(0); }
-      100% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+      0% { opacity: 0; transform: translate(-50%, -50%) translateY(10px); }
+      20% { opacity: 0.88; transform: translate(-50%, -50%) translateY(0); }
+      75% { opacity: 0.88; transform: translate(-50%, -50%) translateY(0); }
+      100% { opacity: 0; transform: translate(-50%, -50%) translateY(-8px); }
     }
     @keyframes seam-breathe {
       0%, 100% { opacity: 0.28; transform: translateX(-50%) rotate(-6deg) scaleX(0.985); }
@@ -766,8 +867,8 @@
         line-height: 1.7;
       }
       .epilogue {
-        bottom: 11%;
-        font-size: clamp(13px, 3.8vw, 16px);
+        top: 48%;
+        font-size: clamp(16px, 4.6vw, 22px);
       }
       .loading-overlay {
         font-size: clamp(12px, 3.5vw, 15px);
@@ -778,7 +879,7 @@
 </head>
 <body data-bg="1" data-music="1">
   <div class="background">
-    <img id="bgImage" alt="" />
+    <img id="bgImage" alt="" src="z7771436536221_a1c4348aa46cee7ced7ad50068ca783b.jpg" fetchpriority="high" decoding="async" />
   </div>
   <div class="rift"></div>
   <div class="seam"></div>
@@ -787,7 +888,7 @@
   <div class="brand-smoke" id="brandSmoke"></div>
   <div class="music-dock">
     <div class="music-chip" id="musicChip">
-      <button id="playBtn" type="button" aria-label="Phát hoặc dừng nhạc">▶</button>
+      <button id="playBtn" type="button" aria-label="Play or pause music">▶</button>
       <div class="music-progress" aria-hidden="true"><div class="music-progress-bar" id="musicProgressBar"></div></div>
     </div>
     <audio id="bgm" preload="none">
@@ -800,7 +901,7 @@
     <span class="blessing-line">Bọn tao chúc Phanh tương lai sáng lạn, thành công rực rỡ.</span>
     <span class="blessing-line">Bọn tao chờ Phanh về hội ngộ trong túi đựng tiền tỉ, tay lái ô tô, yêu Phanh ❤️</span>
   </div>
-  <div class="epilogue" id="epilogueMessage">Hẹn ngày hội ngộ.</div>
+  <div class="epilogue" id="epilogueMessage">Hẹn ngày tái ngộ.</div>
   <div class="wish-panel" id="wishPanel">
     <p class="wish-title">Heartfelt Notes for Phanh</p>
     <input id="wishNameInput" class="wish-input" style="min-height:auto;height:40px;margin-bottom:8px;" maxlength="40" placeholder="Your Name" />
@@ -812,8 +913,18 @@
     </div>
     <div class="wish-status" id="wishStatus"></div>
   </div>
+  <div class="access-gate" id="accessGate">
+    <div class="access-card">
+      <p class="access-title">Enter Access</p>
+      <p class="access-question" id="accessQuestion">What is Phanh Loc's birthday?</p>
+      <input id="accessInput" class="access-input" placeholder="Enter your answer..." />
+      <div id="accessError" class="access-error"></div>
+      <button id="accessBtn" type="button" class="access-btn">Continue</button>
+    </div>
+  </div>
+  <div class="epilogue" id="accessSuccessMessage">Tri Kỉ</div>
   <div class="loading-overlay" id="loadingOverlay"><span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></div>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
     const EMAILJS_PUBLIC_KEY = 'rbFLlPz18RcEoThD8';
     const EMAILJS_SERVICE_ID = 'service_pb0ykc5';
@@ -838,18 +949,23 @@
     const wishSkipBtn = document.getElementById('wishSkipBtn');
     const wishStatus = document.getElementById('wishStatus');
     const loadingOverlay = document.getElementById('loadingOverlay');
+    const accessGate = document.getElementById('accessGate');
+    const accessInput = document.getElementById('accessInput');
+    const accessBtn = document.getElementById('accessBtn');
+    const accessError = document.getElementById('accessError');
+    const accessSuccessMessage = document.getElementById('accessSuccessMessage');
+    const ACCESS_ANSWER = '1705';
     let isStartingMusic = false;
     let blessingTimerId = null;
     let hasShownBlessing = false;
     let blessingVanishStarted = false;
     let blessingLinesShown = 0;
     let blessingVanishAt = Infinity;
+    let blessingStartAt = 0;
     let epilogueAt = Infinity;
-    const blessingBeatTimes = [15.0, 18.2, 21.6];
+    const blessingBeatTimes = [0.0, 3.2, 6.6];
+    let experienceStarted = false;
 
-    if (document.body.dataset.bg === '1') {
-      bgImage.src = 'z7771436536221_a1c4348aa46cee7ced7ad50068ca783b.jpg';
-    }
     const hasMusic = document.body.dataset.music === '1';
     if (!hasMusic) {
       bgm.setAttribute('disabled', 'disabled');
@@ -1000,12 +1116,6 @@
       }
     }
 
-    function warmAudio() {
-      if (!hasMusic) return;
-      bgm.preload = 'metadata';
-      bgm.load();
-    }
-
     function updateMusicProgress() {
       if (!musicProgressBar || !bgm.duration || Number.isNaN(bgm.duration)) return;
       const pct = Math.min(100, Math.max(0, (bgm.currentTime / bgm.duration) * 100));
@@ -1024,6 +1134,7 @@
     function showBlessingMessage() {
       if (!blessingMessage || hasShownBlessing) return;
       hasShownBlessing = true;
+      blessingStartAt = hasMusic ? (bgm.currentTime || 0) : 0;
       blessingMessage.classList.add('show');
       const lines = blessingMessage.querySelectorAll('.blessing-line');
       blessingLinesShown = 0;
@@ -1036,16 +1147,17 @@
     function updateBlessingByMusicTime() {
       if (!hasShownBlessing || !blessingMessage) return;
       const lines = blessingMessage.querySelectorAll('.blessing-line');
+      const elapsed = Math.max(0, (bgm.currentTime || 0) - blessingStartAt);
       for (let i = blessingLinesShown; i < lines.length; i++) {
         const beatAt = blessingBeatTimes[i] ?? (blessingBeatTimes[blessingBeatTimes.length - 1] + (i - blessingBeatTimes.length + 1) * 2.2);
-        if (bgm.currentTime >= beatAt) {
+        if (elapsed >= beatAt) {
           lines[i].classList.add('show');
           blessingLinesShown = i + 1;
         } else {
           break;
         }
       }
-      if (!blessingVanishStarted && bgm.currentTime >= blessingVanishAt) {
+      if (!blessingVanishStarted && elapsed >= blessingVanishAt) {
         blessingVanishStarted = true;
         emitBlessingSmoke();
         lines.forEach((line, index) => {
@@ -1054,7 +1166,7 @@
         });
         blessingMessage.classList.add('vanish');
       }
-      if (bgm.currentTime >= epilogueAt) {
+      if (elapsed >= epilogueAt) {
         showEpilogueMessage();
       }
     }
@@ -1076,6 +1188,46 @@
       if (!loadingOverlay) return;
       loadingOverlay.classList.add('hide');
       document.body.classList.add('scene-ready');
+    }
+
+    function startExperience() {
+      if (experienceStarted) return;
+      experienceStarted = true;
+      openWishPanel();
+      setTimeout(hideLoadingOverlay, 3000);
+    }
+
+    function unlockAccess() {
+      const answer = (accessInput?.value || '').trim().toLowerCase();
+      if (answer !== ACCESS_ANSWER) {
+        if (accessError) accessError.textContent = 'Wrong answer. Please try again.';
+        return;
+      }
+      if (accessSuccessMessage) {
+        accessSuccessMessage.classList.add('show');
+      }
+      emitAccessFirework();
+      if (accessGate) accessGate.classList.add('hidden');
+      setTimeout(() => {
+        if (accessSuccessMessage) accessSuccessMessage.classList.remove('show');
+        startExperience();
+      }, 1800);
+    }
+
+    function emitAccessFirework() {
+      const count = 42;
+      for (let i = 0; i < count; i++) {
+        const spark = document.createElement('span');
+        spark.className = 'access-spark';
+        const angle = (Math.PI * 2 * i) / count + (Math.random() * 0.24);
+        const radius = 36 + Math.random() * 90;
+        spark.style.setProperty('--dx', (Math.cos(angle) * radius).toFixed(1) + 'px');
+        spark.style.setProperty('--dy', (Math.sin(angle) * radius).toFixed(1) + 'px');
+        spark.style.setProperty('--sc', (1.2 + Math.random() * 1.1).toFixed(2));
+        spark.style.setProperty('--dur', (900 + Math.random() * 700).toFixed(0) + 'ms');
+        document.body.appendChild(spark);
+        spark.addEventListener('animationend', () => spark.remove());
+      }
     }
 
     function openWishPanel() {
@@ -1111,7 +1263,7 @@
     async function sendWishToEmail(name, text) {
       if (!canSendWishEmail()) return false;
       window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      const senderName = name || 'Bạn ẩn danh';
+      const senderName = name || 'Anonymous';
       const sentAt = new Date().toLocaleString('vi-VN');
       const result = await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         from_name: senderName,
@@ -1133,11 +1285,11 @@
       const text = (wishInput?.value || '').trim();
       const name = (wishNameInput?.value || '').trim();
       if (!text) {
-        setWishStatus('Bạn hãy nhập lời chúc trước nhé.', true);
+        setWishStatus('Please enter a message first.', true);
         return;
       }
       try {
-        setWishStatus('Đang gửi lời chúc...');
+        setWishStatus('Sending your message...');
         if (wishSaveBtn) wishSaveBtn.disabled = true;
         localStorage.setItem('guestWishMessage', text);
         if (wishInput) wishInput.value = '';
@@ -1155,15 +1307,15 @@
         }
         setWishStatus(
           emailed
-            ? 'Đã gửi lời chúc + email thành công.'
-            : 'Đã gửi lời chúc, nhưng email lỗi: ' + emailError,
+            ? 'Message sent successfully + email delivered.'
+            : 'Message sent, but email failed: ' + emailError,
           !emailed
         );
         if (!emailed) {
           console.error('EmailJS send failed:', emailError);
         }
       } catch (err) {
-        setWishStatus('Lỗi kết nối, bạn thử lại nhé.', true);
+        setWishStatus('Connection error. Please try again.', true);
       } finally {
         if (wishSaveBtn) wishSaveBtn.disabled = false;
       }
@@ -1172,7 +1324,7 @@
     async function clearAllWishes() {
       if (!wishInput) return;
       wishInput.value = '';
-      setWishStatus('Đã xóa nội dung đang nhập.');
+      setWishStatus('Draft cleared.');
     }
 
     async function skipWishAndPlay() {
@@ -1206,15 +1358,10 @@
     }
 
     function scheduleBlessingMessage() {
-      if (blessingTimerId || hasShownBlessing) return;
-      blessingTimerId = setTimeout(() => {
-        blessingTimerId = null;
-        showBlessingMessage();
-      }, 15000);
+      // Blessing is now synced to when the "Phanh Loc" title disappears.
     }
 
     const scene = getSceneProfile();
-    warmAudio();
 
     addStars(scene.stars);
     addDust();
@@ -1225,6 +1372,7 @@
       setTimeout(spawnMeteor, i * 900);
     }
     setTimeout(emitSmokeBurst, 14800);
+    brand.addEventListener('animationend', showBlessingMessage, { once: true });
     playBtn.addEventListener('click', toggleMusic);
     bgm.addEventListener('play', scheduleBlessingMessage);
     bgm.addEventListener('timeupdate', updateMusicProgress);
@@ -1242,9 +1390,15 @@
         }
       });
     }
+    if (accessBtn) accessBtn.addEventListener('click', unlockAccess);
+    if (accessInput) {
+      accessInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') unlockAccess();
+      });
+      setTimeout(() => accessInput.focus(), 80);
+    }
     window.addEventListener('load', () => {
-      openWishPanel();
-      setTimeout(hideLoadingOverlay, 3000);
+      // Access gate must be answered first.
     });
   </script>
 </body>
